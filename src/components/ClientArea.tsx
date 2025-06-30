@@ -4,7 +4,11 @@ import { useOrder } from '../context/OrderContext';
 import Cart from './Cart';
 import { MenuItem } from '../types';
 
-export default function ClientArea() {
+interface ClientAreaProps {
+  onSwitchToAdmin: () => void;
+}
+
+export default function ClientArea({ onSwitchToAdmin }: ClientAreaProps) {
   const { menuItems, cart, addToCart } = useOrder();
   const [showCart, setShowCart] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('Todos');
@@ -30,14 +34,14 @@ export default function ClientArea() {
               <h1 className="text-2xl font-bold text-primary-600">🍔 LancheExpress</h1>
             </div>
             <div className="flex items-center gap-4">
-              <a
-                href="/admin"
-                className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors"
+              <button
+                onClick={onSwitchToAdmin}
+                className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors px-3 py-2 rounded-lg hover:bg-gray-100"
                 title="Área Administrativa"
               >
                 <Settings size={20} />
                 <span className="hidden sm:inline">Admin</span>
-              </a>
+              </button>
               <button
                 onClick={() => setShowCart(true)}
                 className="relative btn-primary flex items-center gap-2"

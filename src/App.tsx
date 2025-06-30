@@ -1,39 +1,46 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ClientArea from './components/ClientArea';
 import AdminArea from './components/AdminArea';
 import Login from './components/Login';
 import { OrderProvider } from './context/OrderContext';
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [currentView, setCurrentView] = useState<'client' | 'admin' | 'login'>('client');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleViewChange = (view: 'client' | 'admin') => {
+    if (view === 'admin' && !isAuthenticated) {
+      setCurrentView('login');
+    } else {
+      setCurrentView(view);
+    }
+  };
+
+  const handleLogin = (success: boolean) => {
+    if (success) {
+      setIsAuthenticated(true);
+      setCurrentView('admin');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    setCurrentView('client');
+  };
 
   return (
     <OrderProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Routes>
-            <Route path="/" element={<ClientArea />} />
-            <Route 
-              path="/admin" 
-              element={
-                isAuthenticated ? (
-                  <AdminArea />
-                ) : (
-                  <Login 
-                    onLogin={(success) => {
-                      setIsAuthenticated(success);
-                      setIsAdmin(success);
-                    }} 
-                  />
-                )
-              } 
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </div>
-      </Router>
+      <div className="min-h-screen bg-gray-50">
+        {currentView === 'client' && (
+          <ClientArea onSwitchToAdmin={() => handleViewChange('admin')} />
+        )}
+        {currentView === 'admin' && (
+          <AdminArea onSwitchToClient={() => setCurrentView('client')} onLogout={handleLogout} />
+        )}
+        {currentView === 'login' && (
+          <Login onLogin={handleLogin} onCancel={() => setCurrentView('client')} />
+        )}
+      </div>
     </OrderProvider>
   );
 }

@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { Package, ShoppingBag, Settings, BarChart3, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Package, ShoppingBag, Settings, BarChart3, Clock, CheckCircle, XCircle, ArrowLeft, LogOut } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import MenuManagement from './MenuManagement';
 
-export default function AdminArea() {
+interface AdminAreaProps {
+  onSwitchToClient: () => void;
+  onLogout: () => void;
+}
+
+export default function AdminArea({ onSwitchToClient, onLogout }: AdminAreaProps) {
   const { orders, updateOrderStatus } = useOrder();
   const [activeTab, setActiveTab] = useState('orders');
 
@@ -49,11 +54,29 @@ export default function AdminArea() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-2xl font-bold text-primary-600">🍔 Admin - LancheExpress</h1>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={onSwitchToClient}
+                className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors px-3 py-2 rounded-lg hover:bg-gray-100"
+                title="Voltar para área do cliente"
+              >
+                <ArrowLeft size={20} />
+                <span className="hidden sm:inline">Voltar</span>
+              </button>
+              <h1 className="text-2xl font-bold text-primary-600">🍔 Admin - LancheExpress</h1>
+            </div>
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600">
                 Faturamento hoje: <strong className="text-primary-600">R$ {todayRevenue.toFixed(2)}</strong>
               </span>
+              <button
+                onClick={onLogout}
+                className="flex items-center gap-2 text-gray-600 hover:text-red-600 transition-colors px-3 py-2 rounded-lg hover:bg-red-50"
+                title="Sair"
+              >
+                <LogOut size={20} />
+                <span className="hidden sm:inline">Sair</span>
+              </button>
             </div>
           </div>
         </div>

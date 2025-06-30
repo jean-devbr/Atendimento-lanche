@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Lock, User } from 'lucide-react';
+import { Lock, User, ArrowLeft } from 'lucide-react';
 
 interface LoginProps {
   onLogin: (success: boolean) => void;
+  onCancel: () => void;
 }
 
-export default function Login({ onLogin }: LoginProps) {
+export default function Login({ onLogin, onCancel }: LoginProps) {
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
@@ -24,6 +25,16 @@ export default function Login({ onLogin }: LoginProps) {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="max-w-md w-full mx-4">
         <div className="card p-8">
+          <div className="flex items-center mb-6">
+            <button
+              onClick={onCancel}
+              className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors"
+            >
+              <ArrowLeft size={20} />
+              Voltar
+            </button>
+          </div>
+
           <div className="text-center mb-8">
             <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <Lock className="text-primary-600" size={32} />
