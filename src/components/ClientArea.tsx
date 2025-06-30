@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, Plus, Settings } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import Cart from './Cart';
 import { MenuItem } from '../types';
@@ -29,18 +29,28 @@ export default function ClientArea() {
             <div className="flex items-center">
               <h1 className="text-2xl font-bold text-primary-600">🍔 LancheExpress</h1>
             </div>
-            <button
-              onClick={() => setShowCart(true)}
-              className="relative btn-primary flex items-center gap-2"
-            >
-              <ShoppingCart size={20} />
-              Carrinho
-              {cartItemsCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
-                  {cartItemsCount}
-                </span>
-              )}
-            </button>
+            <div className="flex items-center gap-4">
+              <a
+                href="/admin"
+                className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-colors"
+                title="Área Administrativa"
+              >
+                <Settings size={20} />
+                <span className="hidden sm:inline">Admin</span>
+              </a>
+              <button
+                onClick={() => setShowCart(true)}
+                className="relative btn-primary flex items-center gap-2"
+              >
+                <ShoppingCart size={20} />
+                Carrinho
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </header>
