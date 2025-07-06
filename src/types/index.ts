@@ -41,6 +41,7 @@ export interface FooterConfig {
   phone: string;
   email: string;
   hours: string;
+  whatsapp: string;
   instagram: string;
   facebook: string;
 }

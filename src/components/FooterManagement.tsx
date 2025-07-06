@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Edit, Eye, EyeOff, Instagram, Facebook } from 'lucide-react';
+import { Save, Edit, Eye, EyeOff, Instagram, Facebook, MessageCircle } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 
 export default function FooterManagement() {
@@ -135,6 +135,20 @@ export default function FooterManagement() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                  WhatsApp
+                </label>
+                <input
+                  type="text"
+                  value={formData.whatsapp}
+                  onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
+                  disabled={!isEditing}
+                  className="input-field"
+                  placeholder="(11) 99999-9999"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Instagram
                 </label>
                 <input
@@ -198,6 +212,14 @@ export default function FooterManagement() {
                     <div>
                       <h5 className="font-semibold mb-3">Redes Sociais</h5>
                       <div className="space-y-2 text-sm text-gray-300">
+                        {formData.whatsapp && (
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 bg-green-500 rounded flex items-center justify-center">
+                              <MessageCircle size={10} className="text-white" />
+                            </div>
+                            <span>{formData.whatsapp}</span>
+                          </div>
+                        )}
                         {formData.instagram && (
                           <div className="flex items-center gap-2">
                             <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded flex items-center justify-center">
