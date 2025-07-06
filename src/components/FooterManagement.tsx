@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, Edit, Eye, EyeOff } from 'lucide-react';
+import { Save, Edit, Eye, EyeOff, Instagram, Facebook } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 
 export default function FooterManagement() {
@@ -198,8 +198,22 @@ export default function FooterManagement() {
                     <div>
                       <h5 className="font-semibold mb-3">Redes Sociais</h5>
                       <div className="space-y-2 text-sm text-gray-300">
-                        {formData.instagram && <p>📷 {formData.instagram}</p>}
-                        {formData.facebook && <p>📘 {formData.facebook}</p>}
+                        {formData.instagram && (
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded flex items-center justify-center">
+                              <Instagram size={10} className="text-white" />
+                            </div>
+                            <span>{formData.instagram}</span>
+                          </div>
+                        )}
+                        {formData.facebook && (
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 bg-blue-600 rounded flex items-center justify-center">
+                              <Facebook size={10} className="text-white" />
+                            </div>
+                            <span>{formData.facebook}</span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

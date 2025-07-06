@@ -1,4 +1,5 @@
 import React from 'react';
+import { Instagram, Facebook } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 
 export default function Footer() {
@@ -61,7 +62,7 @@ export default function Footer() {
                   className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors"
                 >
                   <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-sm">📷</span>
+                    <Instagram size={16} className="text-white" />
                   </div>
                   <span>{footerConfig.instagram}</span>
                 </a>
@@ -74,7 +75,7 @@ export default function Footer() {
                   className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors"
                 >
                   <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <span className="text-white text-sm">f</span>
+                    <Facebook size={16} className="text-white" />
                   </div>
                   <span>{footerConfig.facebook}</span>
                 </a>
