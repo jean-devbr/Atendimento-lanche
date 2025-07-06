@@ -32,3 +32,15 @@ export interface Customer {
   phone: string;
   address?: string;
 }
+
+export interface FooterConfig {
+  enabled: boolean;
+  companyName: string;
+  description: string;
+  address: string;
+  phone: string;
+  email: string;
+  hours: string;
+  instagram: string;
+  facebook: string;
+}

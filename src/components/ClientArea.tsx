@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ShoppingCart, Plus, Settings } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import Cart from './Cart';
+import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
 import { MenuItem } from '../types';
 
 interface ClientAreaProps {
@@ -114,6 +116,12 @@ export default function ClientArea({ onSwitchToAdmin }: ClientAreaProps) {
           ))}
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* WhatsApp Button */}
+      <WhatsAppButton />
 
       {/* Cart Modal */}
       {showCart && <Cart onClose={() => setShowCart(false)} />}

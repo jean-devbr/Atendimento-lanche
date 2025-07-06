@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Package, ShoppingBag, Settings, BarChart3, Clock, CheckCircle, XCircle, ArrowLeft, LogOut } from 'lucide-react';
+import { Package, ShoppingBag, Settings, BarChart3, Clock, CheckCircle, XCircle, ArrowLeft, LogOut, FileText } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import MenuManagement from './MenuManagement';
+import FooterManagement from './FooterManagement';
 
 interface AdminAreaProps {
   onSwitchToClient: () => void;
@@ -162,6 +163,16 @@ export default function AdminArea({ onSwitchToClient, onLogout }: AdminAreaProps
               >
                 Cardápio
               </button>
+              <button
+                onClick={() => setActiveTab('footer')}
+                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                  activeTab === 'footer'
+                    ? 'border-primary-500 text-primary-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                }`}
+              >
+                Footer
+              </button>
             </nav>
           </div>
         </div>
@@ -266,6 +277,7 @@ export default function AdminArea({ onSwitchToClient, onLogout }: AdminAreaProps
         )}
 
         {activeTab === 'menu' && <MenuManagement />}
+        {activeTab === 'footer' && <FooterManagement />}
       </div>
     </div>
   );

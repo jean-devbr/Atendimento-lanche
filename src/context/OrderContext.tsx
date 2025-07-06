@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Order, MenuItem, OrderItem } from '../types';
+import { Order, MenuItem, OrderItem, FooterConfig } from '../types';
 
 interface OrderContextType {
   orders: Order[];
   menuItems: MenuItem[];
   cart: OrderItem[];
+  footerConfig: FooterConfig;
   addToCart: (item: MenuItem, quantity: number, observations?: string) => void;
   removeFromCart: (itemId: string) => void;
   updateCartQuantity: (itemId: string, quantity: number) => void;
@@ -14,6 +15,7 @@ interface OrderContextType {
   updateMenuItem: (item: MenuItem) => void;
   addMenuItem: (item: MenuItem) => void;
   deleteMenuItem: (itemId: string) => void;
+  updateFooterConfig: (config: FooterConfig) => void;
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -57,10 +59,23 @@ const initialMenuItems: MenuItem[] = [
   }
 ];
 
+const initialFooterConfig: FooterConfig = {
+  enabled: true,
+  companyName: 'LancheExpress',
+  description: 'Lanches artesanais feitos com ingredientes frescos e muito amor. Sabor que você nunca esquece!',
+  address: 'Rua das Flores, 123 - Centro, São Paulo - SP',
+  phone: '(11) 99999-9999',
+  email: 'contato@lancheexpress.com',
+  hours: 'Segunda a Domingo: 18h às 23h',
+  instagram: '@lancheexpress',
+  facebook: 'LancheExpress'
+};
+
 export function OrderProvider({ children }: { children: ReactNode }) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
   const [cart, setCart] = useState<OrderItem[]>([]);
+  const [footerConfig, setFooterConfig] = useState<FooterConfig>(initialFooterConfig);
 
   const addToCart = (item: MenuItem, quantity: number, observations?: string) => {
     const existingItem = cart.find(cartItem => cartItem.menuItem.id === item.id);
@@ -143,6 +158,10 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setMenuItems(menuItems.filter(item => item.id !== itemId));
   };
 
+  const updateFooterConfig = (config: FooterConfig) => {
+    setFooterConfig(config);
+  };
+
   const sendWhatsAppNotification = (order: Order) => {
     const message = `🍔 *NOVO PEDIDO* 🍔\n\n` +
       `*Cliente:* ${order.customerName}\n` +
@@ -167,6 +186,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       orders,
       menuItems,
       cart,
+      footerConfig,
       addToCart,
       removeFromCart,
       updateCartQuantity,
@@ -175,7 +195,8 @@ export function OrderProvider({ children }: { children: ReactNode }) {
       updateOrderStatus,
       updateMenuItem,
       addMenuItem,
-      deleteMenuItem
+      deleteMenuItem,
+      updateFooterConfig
     }}>
       {children}
     </OrderContext.Provider>
