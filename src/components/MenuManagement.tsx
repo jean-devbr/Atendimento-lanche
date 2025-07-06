@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X, Upload, Image } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import { MenuItem } from '../types';
 
@@ -7,7 +7,6 @@ export default function MenuManagement() {
   const { menuItems, addMenuItem, updateMenuItem, deleteMenuItem } = useOrder();
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  const [imagePreview, setImagePreview] = useState<string>('');
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -26,35 +25,8 @@ export default function MenuManagement() {
       image: '',
       available: true
     });
-    setImagePreview('');
     setEditingItem(null);
     setShowForm(false);
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      // Verificar formato do arquivo
-      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-      if (!allowedTypes.includes(file.type)) {
-        alert('Por favor, selecione uma imagem nos formatos: JPG, JPEG, PNG ou WEBP');
-        return;
-      }
-
-      // Verificar tamanho do arquivo (máximo 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('A imagem deve ter no máximo 5MB');
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        setImagePreview(result);
-        setFormData({...formData, image: result});
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -89,7 +61,6 @@ export default function MenuManagement() {
       image: item.image,
       available: item.available
     });
-    setImagePreview(item.image);
     setShowForm(true);
   };
 
@@ -117,7 +88,7 @@ export default function MenuManagement() {
       {/* Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold">
                 {editingItem ? 'Editar Item' : 'Novo Item'}
@@ -189,47 +160,15 @@ export default function MenuManagement() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Imagem do produto
+                  URL da imagem
                 </label>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-center w-full">
-                    <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <Upload className="w-8 h-8 mb-2 text-gray-500" />
-                        <p className="mb-2 text-sm text-gray-500">
-                          <span className="font-semibold">Clique para enviar</span> ou arraste a imagem
-                        </p>
-                        <p className="text-xs text-gray-500">PNG, JPG, JPEG ou WEBP (máx. 5MB)</p>
-                      </div>
-                      <input
-                        type="file"
-                        className="hidden"
-                        accept="image/jpeg,image/jpg,image/png,image/webp"
-                        onChange={handleImageUpload}
-                      />
-                    </label>
-                  </div>
-                  
-                  {imagePreview && (
-                    <div className="relative">
-                      <img
-                        src={imagePreview}
-                        alt="Preview"
-                        className="w-full h-32 object-cover rounded-lg"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setImagePreview('');
-                          setFormData({...formData, image: ''});
-                        }}
-                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <input
+                  type="url"
+                  value={formData.image}
+                  onChange={(e) => setFormData({...formData, image: e.target.value})}
+                  className="input-field"
+                  placeholder="https://exemplo.com/imagem.jpg"
+                />
               </div>
 
               <div className="flex items-center">
