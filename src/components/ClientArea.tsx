@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ShoppingCart, Plus, Settings } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 import Cart from './Cart';
-import Footer from './Footer';
 import WhatsAppButton from './WhatsAppButton';
 import { MenuItem } from '../types';
 
@@ -88,7 +87,7 @@ export default function ClientArea({ onSwitchToAdmin }: ClientAreaProps) {
         </div>
 
         {/* Menu Items */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-8">
           {filteredItems.map(item => (
             <div key={item.id} className="card overflow-hidden hover:shadow-lg transition-shadow">
               <img
@@ -116,9 +115,6 @@ export default function ClientArea({ onSwitchToAdmin }: ClientAreaProps) {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
 
       {/* WhatsApp Button */}
       <WhatsAppButton />
