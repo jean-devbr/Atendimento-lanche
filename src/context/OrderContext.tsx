@@ -67,7 +67,6 @@ const initialFooterConfig: FooterConfig = {
   phone: '(11) 99999-9999',
   email: 'contato@lancheexpress.com',
   hours: 'Segunda a Domingo: 18h às 23h',
-  whatsapp: '(11) 99999-9999',
   instagram: '@lancheexpress',
   facebook: 'LancheExpress'
 };

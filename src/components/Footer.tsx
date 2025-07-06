@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Facebook, MessageCircle } from 'lucide-react';
+import { Instagram, Facebook } from 'lucide-react';
 import { useOrder } from '../context/OrderContext';
 
 export default function Footer() {
@@ -54,19 +54,6 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Redes Sociais</h4>
             <div className="space-y-3">
-              {footerConfig.whatsapp && (
-                <a
-                  href={`https://wa.me/${footerConfig.whatsapp.replace(/\D/g, '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors"
-                >
-                  <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                    <MessageCircle size={16} className="text-white" />
-                  </div>
-                  <span>{footerConfig.whatsapp}</span>
-                </a>
-              )}
               {footerConfig.instagram && (
                 <a
                   href={`https://instagram.com/${footerConfig.instagram.replace('@', '')}`}
